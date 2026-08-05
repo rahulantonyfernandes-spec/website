@@ -1,4 +1,3 @@
-
 name: Deploy Vite to GitHub Pages
 
 on:
@@ -21,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -29,20 +28,23 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: 6a72d3f4a6ca3674dd47bbf2-65e62f81a6d61181/package-lock.json
 
       - name: Install dependencies
+        working-directory: 6a72d3f4a6ca3674dd47bbf2-65e62f81a6d61181
         run: npm install
 
       - name: Build project
+        working-directory: 6a72d3f4a6ca3674dd47bbf2-65e62f81a6d61181
         run: npm run build
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./6a72d3f4a6ca3674dd47bbf2-65e62f81a6d61181/dist
 
   deploy:
     needs: build
@@ -60,4 +62,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-        
